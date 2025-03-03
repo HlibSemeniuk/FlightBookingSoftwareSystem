@@ -60,6 +60,7 @@ namespace E_Ticket_System
     class E_Ticket_Processor
     {
         static int number_of_e_tickets;
+        private const string ETicketsDataFile = "ETickets.data"; // Константа для імені файлу
 
         public static int Number_Of_E_Tickets
         {
@@ -71,11 +72,12 @@ namespace E_Ticket_System
         public void Process_Payment()/*for validation purpose during payment process. Validation process includes checking if the available balance covers the ticket fare.*/
         {
         }
+
         public static void View_All_Tickets()
         {
-            if (new FileInfo("E-Tickets.data").Length != 0)
+            if (new FileInfo(ETicketsDataFile).Length != 0)
             {
-                FileStream E_Ticket_stream = new FileStream("E-Tickets.data", FileMode.Open, FileAccess.Read);
+                FileStream E_Ticket_stream = new FileStream(ETicketsDataFile, FileMode.Open, FileAccess.Read);
                 BinaryFormatter bf = new BinaryFormatter();
 
                 try
@@ -102,7 +104,7 @@ namespace E_Ticket_System
 
         public static void Save_Ticket(E_Ticket arg1)
         {
-            FileStream E_Ticket_stream = new FileStream("E-Tickets.data", FileMode.Append, FileAccess.Write);
+            FileStream E_Ticket_stream = new FileStream(ETicketsDataFile, FileMode.Append, FileAccess.Write);
             BinaryFormatter bf = new BinaryFormatter();
 
             try
@@ -118,7 +120,7 @@ namespace E_Ticket_System
         }
         public static E_Ticket Load_Ticket()
         {
-            FileStream E_Ticket_stream = new FileStream("E-Tickets.data", FileMode.Open, FileAccess.Read);
+            FileStream E_Ticket_stream = new FileStream(ETicketsDataFile, FileMode.Open, FileAccess.Read);
             BinaryFormatter bf = new BinaryFormatter();
 
             try
