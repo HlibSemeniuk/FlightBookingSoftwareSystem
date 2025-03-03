@@ -85,10 +85,9 @@ namespace Flight_Booking_Software_System
 
             } while (ui_selector != "z" && ui_selector != "Z");
 
-            FileStream custom_data_stream = new FileStream(CustomDataFile, FileMode.Open, FileAccess.Write);
             BinaryFormatter bf = new BinaryFormatter();
 
-            try
+            using (FileStream custom_data_stream = new FileStream(CustomDataFile, FileMode.Create, FileAccess.Write))
             {
                 Custom_Data cd = new Custom_Data();
 
@@ -100,11 +99,6 @@ namespace Flight_Booking_Software_System
                 cd.latest_data[5] = Convert.ToString(Custom_Data.Number_Of_Passengers);
 
                 bf.Serialize(custom_data_stream, cd);
-            }
-
-            finally
-            {
-                custom_data_stream.Close();
             }
         }
     }
