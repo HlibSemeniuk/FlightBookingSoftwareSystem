@@ -21,23 +21,26 @@ namespace E_Ticket_System
 
         public string Ticket_Code
         {
-            get
-            {
-                return ticket_code;
-            }
+            get { return ticket_code; }
             set
             {
+                if (string.IsNullOrEmpty(value))
+                {
+                    throw new ArgumentException("Ticket code cannot be empty.", nameof(Ticket_Code));
+                }
                 ticket_code = value;
             }
         }
         public decimal Total_Fare // Змінюємо тип на decimal
         {
-            get
-            {
-                return total_fare;
-            }
+
+            get { return total_fare; }
             set
             {
+                if (value < 0)
+                {
+                    throw new ArgumentException("Total fare cannot be negative.", nameof(Total_Fare));
+                }
                 total_fare = value;
             }
         }
