@@ -71,24 +71,30 @@ namespace Custom
         {
             if (new FileInfo(CustomDataFile).Length != 0)
             {
-                FileStream custom_data_stream = new FileStream(CustomDataFile, FileMode.Open, FileAccess.Read);
                 BinaryFormatter bf = new BinaryFormatter();
-
-                try
+                using (FileStream custom_data_stream = new FileStream(CustomDataFile, FileMode.Open, FileAccess.Read))
                 {
-                    Custom_Data cd = (Custom_Data)bf.Deserialize(custom_data_stream);
+                    try
+                    {
+                        Custom_Data cd = (Custom_Data)bf.Deserialize(custom_data_stream);
 
-                    Custom_Data.administrator_name = cd.latest_data[0];
-                    Custom_Data.administrator_password = cd.latest_data[1];
-                    Custom_Data.number_of_credit_cards = Convert.ToInt32(cd.latest_data[2]);
-                    Custom_Data.number_of_e_tickets = Convert.ToInt32(cd.latest_data[3]);
-                    Custom_Data.number_of_flights = Convert.ToInt32(cd.latest_data[4]);
-                    Custom_Data.number_of_passengers = Convert.ToInt32(cd.latest_data[5]);
-                }
-
-                finally
-                {
-                    custom_data_stream.Close();
+                        Custom_Data.administrator_name = cd.latest_data[0];
+                        Custom_Data.administrator_password = cd.latest_data[1];
+                        Custom_Data.number_of_credit_cards = Convert.ToInt32(cd.latest_data[2]);
+                        Custom_Data.number_of_e_tickets = Convert.ToInt32(cd.latest_data[3]);
+                        Custom_Data.number_of_flights = Convert.ToInt32(cd.latest_data[4]);
+                        Custom_Data.number_of_passengers = Convert.ToInt32(cd.latest_data[5]);
+                    }
+                    catch (FileNotFoundException)
+                    {
+                        // Обробка FileNotFoundException
+                        administrator_name = "admin";
+                        administrator_password = "pass";
+                        number_of_credit_cards = 0;
+                        number_of_e_tickets = 0;
+                        number_of_flights = 0;
+                        number_of_passengers = 0;
+                    }
                 }
             }
             else
