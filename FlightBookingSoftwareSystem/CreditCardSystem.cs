@@ -74,6 +74,8 @@ namespace Credit_Card_System
     class Credit_Card_Processor
     {
         static int number_of_credit_cards;
+        // Визначаємо константу для імені файлу
+        private const string CreditCardsDataFile = "CreditCards.data";
 
         public static int Number_Of_Credit_Cards
         {
@@ -84,35 +86,43 @@ namespace Credit_Card_System
 
         public static void Save_Card(Credit_Card arg1)
         {
-            FileStream credit_card_stream = new FileStream("Credit Cards.data", FileMode.Append, FileAccess.Write);
-            BinaryFormatter bf = new BinaryFormatter();
-
-            try
+            // Використовуємо константу CreditCardsDataFile
+            using (FileStream credit_card_stream = new FileStream(CreditCardsDataFile, FileMode.Append, FileAccess.Write))
             {
-                bf.Serialize(credit_card_stream, arg1);
-            }
+                BinaryFormatter bf = new BinaryFormatter();
 
-            finally
-            {
-                credit_card_stream.Close();
-                number_of_credit_cards++;
+                try
+                {
+                    bf.Serialize(credit_card_stream, arg1);
+                }
+
+                finally
+                {
+                    credit_card_stream.Close();
+                    number_of_credit_cards++;
+                }
             }
         }
+
         public static Credit_Card Load_Card()
         {
-            FileStream credit_card_stream = new FileStream("Credit Cards.data", FileMode.Open, FileAccess.Read);
             BinaryFormatter bf = new BinaryFormatter();
 
-            try
+            // Використовуємо константу CreditCardsDataFile
+            using (FileStream credit_card_stream = new FileStream(CreditCardsDataFile, FileMode.Open, FileAccess.Read))
             {
-                Credit_Card c1 = (Credit_Card)bf.Deserialize(credit_card_stream);
-                return c1;
+                try
+                {
+                    Credit_Card c1 = (Credit_Card)bf.Deserialize(credit_card_stream);
+                    return c1;
+                }
+
+                finally
+                {
+                    credit_card_stream.Close();
+                }
             }
 
-            finally
-            {
-                credit_card_stream.Close();
-            }
         }
         public static void Add_Card(string arg1, DateTime arg2, decimal arg3)
         {
