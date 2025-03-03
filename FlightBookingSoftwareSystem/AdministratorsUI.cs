@@ -5,11 +5,25 @@ using System.Text;
 
 using Administrators;
 using E_Ticket_System;
+using Flight_Booking_Software_System;
 
 namespace Administrators_UI
 {
     class Administrator_UI
     {
+        private static Dictionary<string, IAdminOperation> _adminOperations;
+
+        static Administrator_UI() // Статичний конструктор для ініціалізації словника
+        {
+            _adminOperations = new Dictionary<string, IAdminOperation>()
+            {
+                {"1", new AddTicketOperation()},
+                {"2", new ViewAllTicketsOperation()},
+                {"x", new ReturnToPreviousMenuOperation()},
+                {"X", new ReturnToPreviousMenuOperation()}
+            };
+        }
+
         public static void Administrators_UI_Operation()
         {
             Console.Clear();
@@ -48,11 +62,17 @@ namespace Administrators_UI
 
                     ui_selector = Console.ReadLine();
 
-                    switch (ui_selector)
+                    // Замінюємо switch на виклик операції зі словника
+                    if (_adminOperations.ContainsKey(ui_selector))
                     {
-                        case "1": Console.Write("Ticket #: "); E_Ticket_Processor.Add_Ticket(Console.ReadLine(), 0.022525); break;
-                        case "2": E_Ticket_Processor.View_All_Tickets(); break;
+                        _adminOperations[ui_selector].Execute();
                     }
+                    else
+                    {
+                        _adminOperations["unknown"] = new UnknownOperation(); // Додаємо обробку невідомих операцій
+                        _adminOperations["unknown"].Execute();
+                    }
+
 
                     if (ui_selector != "x" && ui_selector != "X")
                     {

@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AddTicketOperation .cs" />
     <Compile Include="Administrators.cs" />
     <Compile Include="AdministratorsUI.cs" />
     <Compile Include="CreditCardSystem.cs" />
@@ -54,9 +55,13 @@
     <Compile Include="FlightCreationData.cs" />
     <Compile Include="FlightSystem.cs" />
     <Compile Include="FlightBookingMain.cs" />
+    <Compile Include="IAdminOperation.cs" />
     <Compile Include="PassengerSystem.cs" />
     <Compile Include="PassengerUI.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ReturnToPreviousMenuOperation .cs" />
+    <Compile Include="UnknownOperation .cs" />
+    <Compile Include="ViewAllTicketsOperation.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
