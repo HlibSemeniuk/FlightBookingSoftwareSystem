@@ -22,37 +22,46 @@ namespace Passenger_System
 
         public string Name
         {
-            get
-            {
-                return name;
-            }
+            get { return name; }
             set
             {
+                if (string.IsNullOrWhiteSpace(value))
+                {
+                    throw new ArgumentException("Name cannot be null or whitespace.", nameof(Name));
+                }
                 name = value;
             }
         }
         public string Address
         {
-            get
-            {
-                return address;
-            }
+            get { return address; }
             set
             {
+                if (string.IsNullOrWhiteSpace(value))
+                {
+                    throw new ArgumentException("Address cannot be null or whitespace.", nameof(Address));
+                }
                 address = value;
             }
         }
         public string Passport_Number
         {
-            get
-            {
-                return passport_number;
-            }
+            get { return passport_number; }
             set
             {
+                if (string.IsNullOrWhiteSpace(value))
+                {
+                    throw new ArgumentException("Passport Number cannot be null or whitespace.", nameof(Passport_Number));
+                }
+                // Приклад простої валідації формату: лише літери та цифри, мінімальна довжина 6
+                if (!System.Text.RegularExpressions.Regex.IsMatch(value, "^[a-zA-Z0-9]{6,}$"))
+                {
+                    throw new ArgumentException("Passport Number must be at least 6 characters long and contain only letters and digits.", nameof(Passport_Number));
+                }
                 passport_number = value;
             }
         }
+
 
 
         public Passenger(string arg1, string arg2, string arg3)
