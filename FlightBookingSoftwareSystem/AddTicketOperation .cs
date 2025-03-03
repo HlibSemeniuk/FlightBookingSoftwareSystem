@@ -12,7 +12,7 @@ namespace Flight_Booking_Software_System
         public void Execute()
         {
             Console.Write("Ticket #: ");
-            E_Ticket_Processor.Add_Ticket(Console.ReadLine(), 0.022525);
+            E_Ticket_Processor.Add_Ticket(Console.ReadLine(), 0.022525m);
         }
     }
 }

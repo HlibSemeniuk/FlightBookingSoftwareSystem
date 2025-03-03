@@ -15,7 +15,7 @@ namespace Flight_Booking_Software_System
         public Cities Origin { get; set; }
         public Cities Destination { get; set; }
         public int NumberOfSeats { get; set; }
-        public double BaseFare { get; set; }
+        public decimal BaseFare { get; set; }
         public Flight_Status FlightStatus { get; set; }
         public Flight_Type FlightType { get; set; }
     }

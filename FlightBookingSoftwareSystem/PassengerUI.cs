@@ -33,7 +33,7 @@ namespace Passenger_UI
 
                 switch (ui_selector)
                 {
-                    case "1": Console.Write("card#: "); ; Credit_Card_Processor.Add_Card(Console.ReadLine(), DateTime.Now, 0.0); break;
+                    case "1": Console.Write("card#: "); ; Credit_Card_Processor.Add_Card(Console.ReadLine(), DateTime.Now, 0); break;
                     case "2": Console.Write(Credit_Card_Processor.Load_Card()); break;
                     case "3": Console.Write(Credit_Card_Processor.Number_Of_Credit_Cards); break;
                 }

@@ -89,9 +89,9 @@ namespace E_Ticket_System
             }  
         }
 
-        public double Calculate_Total_Fare(Flight arg1, Travel_Class arg2)
+        public decimal Calculate_Total_Fare(Flight arg1, Travel_Class arg2)
         {
-            return (arg1.Base_Flight_Fare*(double)arg1.Flight_Type+(double)arg2);
+            return (arg1.Base_Flight_Fare*(decimal)arg1.Flight_Type+(decimal)arg2);
         }
 
         public static void Save_Ticket(E_Ticket arg1)

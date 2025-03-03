@@ -52,9 +52,9 @@
     <Compile Include="CreditCardSystem.cs" />
     <Compile Include="Custom.cs" />
     <Compile Include="E-TicketSystem.cs" />
+    <Compile Include="FlightBookingMain.cs" />
     <Compile Include="FlightCreationData.cs" />
     <Compile Include="FlightSystem.cs" />
-    <Compile Include="FlightBookingMain.cs" />
     <Compile Include="IAdminOperation.cs" />
     <Compile Include="PassengerSystem.cs" />
     <Compile Include="PassengerUI.cs" />

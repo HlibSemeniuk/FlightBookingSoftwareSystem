@@ -103,36 +103,40 @@ namespace Passenger_System
 
         public static void Save_Passenger(Passenger arg1)
         {
-            FileStream passenger_stream = new FileStream(PassengersDataFile, FileMode.Append, FileAccess.Write);
             BinaryFormatter bf = new BinaryFormatter();
 
             try
             {
-                bf.Serialize(passenger_stream, arg1);
+                // Використовуємо using для надійного закриття файлового потоку
+                using (FileStream passenger_stream = new FileStream(PassengersDataFile, FileMode.Append, FileAccess.Write))
+                {
+                    bf.Serialize(passenger_stream, arg1);
+                }
             }
-
             finally
             {
-                passenger_stream.Close();
                 number_of_passengers++;
-            }
+            } 
         }
         public static Passenger Load_Passenger()
         {
-            FileStream passenger_stream = new FileStream(PassengersDataFile, FileMode.Open, FileAccess.Read);
             BinaryFormatter bf = new BinaryFormatter();
+
 
             try
             {
-                Passenger p1 = (Passenger)bf.Deserialize(passenger_stream);
-                return p1;
+                using (FileStream passenger_stream = new FileStream(PassengersDataFile, FileMode.Open, FileAccess.Read))
+                {
+                    Passenger p1 = (Passenger)bf.Deserialize(passenger_stream);
+                    return p1;
+                }    
             }
-
-            finally
+            catch (FileNotFoundException)
             {
-                passenger_stream.Close();
+                return null;
             }
         }
+
         public static void Add_Passenger(string arg1, string arg2, string arg3)//this is Register_Passenger
         {
             try
