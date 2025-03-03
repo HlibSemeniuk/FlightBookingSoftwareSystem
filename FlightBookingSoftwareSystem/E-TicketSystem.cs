@@ -17,7 +17,7 @@ namespace E_Ticket_System
     class E_Ticket
     {
         string ticket_code;
-        double total_fare;
+        decimal total_fare; // Змінюємо тип на decimal
 
         public string Ticket_Code
         {
@@ -30,7 +30,7 @@ namespace E_Ticket_System
                 ticket_code = value;
             }
         }
-        public double Total_Fare
+        public decimal Total_Fare // Змінюємо тип на decimal
         {
             get
             {
@@ -43,7 +43,7 @@ namespace E_Ticket_System
         }
 
 
-        public E_Ticket(string arg1, double arg2)
+        public E_Ticket(string arg1, decimal arg2) // Змінюємо тип на decimal
         {
             Ticket_Code = arg1;
             Total_Fare = arg2;
@@ -129,7 +129,7 @@ namespace E_Ticket_System
                 E_Ticket_stream.Close();
             }
         }
-        public static void Add_Ticket(string arg1, double arg2)
+        public static void Add_Ticket(string arg1, decimal arg2)
         {
             try
             {
