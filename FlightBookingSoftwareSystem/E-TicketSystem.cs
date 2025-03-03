@@ -77,22 +77,23 @@ namespace E_Ticket_System
         {
             if (new FileInfo(ETicketsDataFile).Length != 0)
             {
-                FileStream E_Ticket_stream = new FileStream(ETicketsDataFile, FileMode.Open, FileAccess.Read);
                 BinaryFormatter bf = new BinaryFormatter();
 
                 try
                 {
-                    while (E_Ticket_stream.Length > E_Ticket_stream.Position)
-                        Console.Write(bf.Deserialize(E_Ticket_stream));
+                    using (FileStream E_Ticket_stream = new FileStream(ETicketsDataFile, FileMode.Open, FileAccess.Read)) // Блок using гарантує закриття файлу
+                    {
+                        while (E_Ticket_stream.Length > E_Ticket_stream.Position)
+                            Console.Write(bf.Deserialize(E_Ticket_stream));
+                    }
                 }
-                finally
+                catch (FileNotFoundException)
                 {
-                    E_Ticket_stream.Close();
+                    Console.WriteLine("No Tickets");
                 }
-            }
-            else { Console.WriteLine("No Tickets"); }
-            
+            }  
         }
+
         public string Create_Ticket_Code()
         {
             return " ";//
@@ -104,36 +105,33 @@ namespace E_Ticket_System
 
         public static void Save_Ticket(E_Ticket arg1)
         {
-            FileStream E_Ticket_stream = new FileStream(ETicketsDataFile, FileMode.Append, FileAccess.Write);
             BinaryFormatter bf = new BinaryFormatter();
 
-            try
+            using (FileStream E_Ticket_stream = new FileStream(ETicketsDataFile, FileMode.Append, FileAccess.Write)) // Блок using гарантує закриття файлу
             {
                 bf.Serialize(E_Ticket_stream, arg1);
             }
-
-            finally
-            {
-                E_Ticket_stream.Close();
-                number_of_e_tickets++;
-            }
         }
+
         public static E_Ticket Load_Ticket()
         {
-            FileStream E_Ticket_stream = new FileStream(ETicketsDataFile, FileMode.Open, FileAccess.Read);
             BinaryFormatter bf = new BinaryFormatter();
 
             try
             {
-                E_Ticket e1 = (E_Ticket)bf.Deserialize(E_Ticket_stream);
-                return e1;
+                using (FileStream E_Ticket_stream = new FileStream(ETicketsDataFile, FileMode.Open, FileAccess.Read)) // Блок using гарантує закриття файлу
+                {
+                    E_Ticket e1 = (E_Ticket)bf.Deserialize(E_Ticket_stream);
+                    return e1;
+                }    
+                    
             }
-
-            finally
+            catch (FileNotFoundException)
             {
-                E_Ticket_stream.Close();
+                return null;
             }
         }
+
         public static void Add_Ticket(string arg1, decimal arg2)
         {
             try
