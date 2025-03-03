@@ -182,34 +182,38 @@ namespace Flight_System
         // flight number generator maybe uses latest_flight_number as a static member
         public static void Save_Flight(Flight arg1)
         {
-            FileStream flight_stream = new FileStream(FlightsDataFile, FileMode.Append, FileAccess.Write);
             BinaryFormatter bf = new BinaryFormatter();
-
-            try
+            
+            using (FileStream flight_stream = new FileStream(FlightsDataFile, FileMode.Append, FileAccess.Write))
             {
-                bf.Serialize(flight_stream, arg1);
-            }
+                try
+                {
+                    bf.Serialize(flight_stream, arg1);
+                }
 
-            finally
-            {
-                flight_stream.Close();
-                number_of_flights++;
+                finally
+                {
+                    number_of_flights++;
+                }
             }
+               
         }
         public static Flight Load_Flight()
         {
-            FileStream flight_stream = new FileStream(FlightsDataFile, FileMode.Open, FileAccess.Read);
             BinaryFormatter bf = new BinaryFormatter();
 
             try
             {
-                Flight f1 = (Flight)bf.Deserialize(flight_stream);
-                return f1;
+                using (FileStream flight_stream = new FileStream(FlightsDataFile, FileMode.Open, FileAccess.Read))
+                {
+                    Flight f1 = (Flight)bf.Deserialize(flight_stream);
+                    return f1;
+                }
+                    
             }
-
-            finally
+            catch (FileNotFoundException)
             {
-                flight_stream.Close();
+                return null;
             }
         }
 
