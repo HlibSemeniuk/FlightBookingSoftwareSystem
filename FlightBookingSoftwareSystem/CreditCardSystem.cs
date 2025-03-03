@@ -15,7 +15,7 @@ namespace Credit_Card_System
     {
         string credit_card_number;/*unique*/
         DateTime expiry_date;
-        double balance;
+        decimal balance; // Змінюємо тип на decimal
 
         public string Credit_Card_Number
         {
@@ -39,20 +39,22 @@ namespace Credit_Card_System
                 expiry_date = value;
             }
         }
-        public double Balance
+        public decimal Balance // Змінюємо тип на decimal
         {
-            get
-            {
-                return balance;
-            }
+            get { return balance; }
             set
             {
+                // Додаємо валідацію для балансу (не від'ємний)
+                if (value < 0)
+                {
+                    throw new ArgumentException("Balance cannot be negative.", nameof(Balance));
+                }
                 balance = value;
             }
         }
 
 
-        public Credit_Card(string arg1, DateTime arg2, double arg3)
+        public Credit_Card(string arg1, DateTime arg2, decimal arg3)
         {
             Credit_Card_Number = arg1;
             Expiry_Date = arg2;
@@ -107,7 +109,7 @@ namespace Credit_Card_System
                 credit_card_stream.Close();
             }
         }
-        public static void Add_Card(string arg1, DateTime arg2, double arg3)
+        public static void Add_Card(string arg1, DateTime arg2, decimal arg3)
         {
             try
             {
