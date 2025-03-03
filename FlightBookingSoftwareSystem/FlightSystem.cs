@@ -19,112 +19,133 @@ namespace Flight_System
         Cities origin;
         Cities destination;
         int number_of_available_seats;
-        double base_flight_fare;
+        decimal base_flight_fare; // Змінюємо тип на decimal
         Flight_Status flight_status;
         Flight_Type flight_type;
 
         public int Flight_Number
         {
-            get
-            {
-                return flight_number;
-            }
+            get { return flight_number; }
             set
             {
+                // Приклад валідації: Flight number має бути позитивним
+                if (value <= 0)
+                {
+                    throw new ArgumentException("Flight number must be a positive integer.", nameof(Flight_Number));
+                }
                 flight_number = value;
             }
         }
+
         public DateTime Departure_Date
         {
-            get
-            {
-                return departure_date;
-            }
+            get { return departure_date; }
             set
             {
+                // Валідація: Дата відправлення не може бути в минулому
+                if (value < DateTime.Now.Date)
+                {
+                    throw new ArgumentException("Departure date cannot be in the past.", nameof(Departure_Date));
+                }
                 departure_date = value;
             }
         }
+
         public DateTime Return_Date
         {
-            get
-            {
-                return return_date;
-            }
+            get { return return_date; }
             set
             {
+                // Для зворотного рейсу дата повернення має бути пізніше дати відправлення
+                if (Flight_Type == Flight_Type.Return && value <= Departure_Date)
+                {
+                    throw new ArgumentException("Return date must be after departure date for return flights.", nameof(Return_Date));
+                }
                 return_date = value;
             }
         }
+
         public Cities Origin
         {
-            get
-            {
-                return origin;
-            }
+            get { return origin; }
             set
             {
+                if (!Enum.IsDefined(typeof(Cities), value)) // Валідація enum
+                {
+                    throw new ArgumentException("Invalid origin city.", nameof(Origin));
+                }
                 origin = value;
             }
         }
+
         public Cities Destination
         {
-            get
-            {
-                return destination;
-            }
+            get { return destination; }
             set
             {
+                if (!Enum.IsDefined(typeof(Cities), value)) // Валідація enum
+                {
+                    throw new ArgumentException("Invalid destination city.", nameof(Destination));
+                }
                 destination = value;
             }
         }
+
         public int Number_Of_Available_Seats
         {
-            get
-            {
-                return number_of_available_seats;
-            }
+            get { return number_of_available_seats; }
             set
             {
+                // Валідація: Кількість місць має бути невід'ємною
+                if (value < 0)
+                {
+                    throw new ArgumentException("Number of available seats cannot be negative.", nameof(Number_Of_Available_Seats));
+                }
                 number_of_available_seats = value;
             }
         }
-        public double Base_Flight_Fare
+
+        public decimal Base_Flight_Fare // Змінюємо тип на decimal
         {
-            get
-            {
-                return base_flight_fare;
-            }
+            get { return base_flight_fare; }
             set
             {
+                // Валідація: Базова вартість не може бути від'ємною
+                if (value < 0)
+                {
+                    throw new ArgumentException("Base flight fare cannot be negative.", nameof(Base_Flight_Fare));
+                }
                 base_flight_fare = value;
             }
         }
         public Flight_Status Flight_Status
         {
-            get
-            {
-                return flight_status;
-            }
+            get { return flight_status; }
             set
             {
+                if (!Enum.IsDefined(typeof(Flight_Status), value)) // Валідація enum
+                {
+                    throw new ArgumentException("Invalid flight status.", nameof(Flight_Status));
+                }
                 flight_status = value;
             }
         }
+
         public Flight_Type Flight_Type
         {
-            get
-            {
-                return flight_type;
-            }
+            get { return flight_type; }
             set
             {
+                if (!Enum.IsDefined(typeof(Flight_Type), value)) // Валідація enum
+                {
+                    throw new ArgumentException("Invalid flight type.", nameof(Flight_Type));
+                }
                 flight_type = value;
             }
         }
 
 
-        public Flight(int arg1, DateTime arg2, DateTime arg3, Cities arg4, Cities arg5, int arg6, double arg7, Flight_Status arg8, Flight_Type arg9)
+        public Flight(int arg1, DateTime arg2, DateTime arg3, Cities arg4, Cities arg5, int arg6, decimal arg7, Flight_Status arg8, Flight_Type arg9)
         {
             Flight_Number = arg1;
             Departure_Date = arg2;
