@@ -170,6 +170,7 @@ namespace Flight_System
     class Flight_Processor
     {
         static int number_of_flights;
+        private const string FlightsDataFile = "Flights.data"; // Константа для імені файлу
 
         public static int Number_Of_Flights
         {
@@ -181,7 +182,7 @@ namespace Flight_System
         // flight number generator maybe uses latest_flight_number as a static member
         public static void Save_Flight(Flight arg1)
         {
-            FileStream flight_stream = new FileStream("Flights.data", FileMode.Append, FileAccess.Write);
+            FileStream flight_stream = new FileStream(FlightsDataFile, FileMode.Append, FileAccess.Write);
             BinaryFormatter bf = new BinaryFormatter();
 
             try
@@ -197,7 +198,7 @@ namespace Flight_System
         }
         public static Flight Load_Flight()
         {
-            FileStream flight_stream = new FileStream("Flights.data", FileMode.Open, FileAccess.Read);
+            FileStream flight_stream = new FileStream(FlightsDataFile, FileMode.Open, FileAccess.Read);
             BinaryFormatter bf = new BinaryFormatter();
 
             try
