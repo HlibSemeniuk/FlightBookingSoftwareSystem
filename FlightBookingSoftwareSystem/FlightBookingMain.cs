@@ -15,36 +15,38 @@ namespace Flight_Booking_Software_System
 {
     class Main_Class
     {
+        // Константи для імен файлів
+        private const string CustomDataFile = "CustomData.data";
+        private const string CreditCardsFile = "CreditCards.data";
+        private const string ETicketsFile = "ETickets.data";
+        private const string FlightsFile = "Flights.data";
+        private const string PassengersFile = "Passengers.data";
+
         static void Main(string[] args)
         {
-            if (!File.Exists("Custom Data.data"))
+            if (!File.Exists(CustomDataFile))
             {
-                File.Create("Custom Data.data");
-                FileStream.Null.Close();
+                File.Create(CustomDataFile).Close();
             }
 
-            if (!File.Exists("Credit Cards.data"))
+            if (!File.Exists(CreditCardsFile))
             {
-                File.Create("Credit Cards.data");
-                FileStream.Null.Close();
+                File.Create(CreditCardsFile).Close();
             }
 
-            if (!File.Exists("E-Tickets.data"))
+            if (!File.Exists(ETicketsFile))
             {
-                File.Create("E-Tickets.data");
-                FileStream.Null.Close();
+                File.Create(ETicketsFile).Close();
             }
 
-            if (!File.Exists("Flights.data"))
+            if (!File.Exists(FlightsFile))
             {
-                File.Create("Flights.data");
-                FileStream.Null.Close();
+                File.Create(FlightsFile).Close();
             }
 
-            if (!File.Exists("Passengers.data"))
+            if (!File.Exists(PassengersFile))
             {
-                File.Create("Passengers.data");
-                FileStream.Null.Close();
+                File.Create(PassengersFile).Close(); 
             }
 
             string ui_selector = "0";
@@ -83,7 +85,7 @@ namespace Flight_Booking_Software_System
 
             } while (ui_selector != "z" && ui_selector != "Z");
 
-            FileStream custom_data_stream = new FileStream("Custom Data.data", FileMode.Open, FileAccess.Write);
+            FileStream custom_data_stream = new FileStream(CustomDataFile, FileMode.Open, FileAccess.Write);
             BinaryFormatter bf = new BinaryFormatter();
 
             try
