@@ -68,11 +68,6 @@ namespace E_Ticket_System
             set { number_of_e_tickets = value; }
         }
 
-
-        public void Process_Payment()/*for validation purpose during payment process. Validation process includes checking if the available balance covers the ticket fare.*/
-        {
-        }
-
         public static void View_All_Tickets()
         {
             if (new FileInfo(ETicketsDataFile).Length != 0)
@@ -94,10 +89,6 @@ namespace E_Ticket_System
             }  
         }
 
-        public string Create_Ticket_Code()
-        {
-            return " ";//
-        }
         public double Calculate_Total_Fare(Flight arg1, Travel_Class arg2)
         {
             return (arg1.Base_Flight_Fare*(double)arg1.Flight_Type+(double)arg2);
