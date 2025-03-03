@@ -79,6 +79,7 @@ namespace Passenger_System
     class Passenger_Processor
     {
         static int number_of_passengers;
+        private const string PassengersDataFile = "Passengers.data"; // Константа для імені файлу
 
         public static int Number_Of_Passengers
         {
@@ -102,7 +103,7 @@ namespace Passenger_System
 
         public static void Save_Passenger(Passenger arg1)
         {
-            FileStream passenger_stream = new FileStream("Passengers.data", FileMode.Append, FileAccess.Write);
+            FileStream passenger_stream = new FileStream(PassengersDataFile, FileMode.Append, FileAccess.Write);
             BinaryFormatter bf = new BinaryFormatter();
 
             try
@@ -118,7 +119,7 @@ namespace Passenger_System
         }
         public static Passenger Load_Passenger()
         {
-            FileStream passenger_stream = new FileStream("Passengers.data", FileMode.Open, FileAccess.Read);
+            FileStream passenger_stream = new FileStream(PassengersDataFile, FileMode.Open, FileAccess.Read);
             BinaryFormatter bf = new BinaryFormatter();
 
             try
