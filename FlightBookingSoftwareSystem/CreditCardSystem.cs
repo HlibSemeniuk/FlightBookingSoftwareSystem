@@ -19,27 +19,32 @@ namespace Credit_Card_System
 
         public string Credit_Card_Number
         {
-            get
-            {
-                return credit_card_number;
-            }
+            get { return credit_card_number; }
             set
             {
+                // Додаємо валідацію для номера картки (не порожній)
+                if (string.IsNullOrEmpty(value))
+                {
+                    throw new ArgumentException("Credit card number cannot be empty.", nameof(Credit_Card_Number));
+                }
                 credit_card_number = value;
             }
         }
+
         public DateTime Expiry_Date
         {
-            get
-            {
-                return expiry_date;
-            }
+            get { return expiry_date; }
             set
             {
+                // Додаємо валідацію для дати (не в минулому)
+                if (value < DateTime.Now.Date)
+                {
+                    throw new ArgumentException("Expiry date cannot be in the past.", nameof(Expiry_Date));
+                }
                 expiry_date = value;
             }
         }
-        public decimal Balance // Змінюємо тип на decimal
+        public decimal Balance
         {
             get { return balance; }
             set
