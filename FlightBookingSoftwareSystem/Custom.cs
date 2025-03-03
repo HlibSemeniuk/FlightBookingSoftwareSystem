@@ -20,6 +20,9 @@ namespace Custom
     [Serializable]
     class Custom_Data
     {
+        // Визначаємо константу для імені файлу
+        private const string CustomDataFile = "CustomData.data";
+
         public string[] latest_data = new string[6];//to save and load the static members
 
         static string administrator_name;
@@ -66,9 +69,9 @@ namespace Custom
 
         static Custom_Data()
         {
-            if (new FileInfo("Custom Data.data").Length != 0)
+            if (new FileInfo(CustomDataFile).Length != 0)
             {
-                FileStream custom_data_stream = new FileStream("Custom Data.data", FileMode.Open, FileAccess.Read);
+                FileStream custom_data_stream = new FileStream(CustomDataFile, FileMode.Open, FileAccess.Read);
                 BinaryFormatter bf = new BinaryFormatter();
 
                 try
