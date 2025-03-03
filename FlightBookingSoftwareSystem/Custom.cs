@@ -9,13 +9,13 @@ using System.Runtime.Serialization.Formatters.Binary;
 //list of all custom types and classes
 namespace Custom
 {
-    enum Cities { Amman, Aqaba, Riyadh /* list of available cities, can use file IO */};
+    public enum Cities { Amman, Aqaba, Riyadh /* list of available cities, can use file IO */};
 
-    enum Flight_Status { Scheduled, Arrived, Cancelled/*Cancelled flights are not available for booking*/};
+    public enum Flight_Status { Scheduled, Arrived, Cancelled/*Cancelled flights are not available for booking*/};
 
-    enum Flight_Type { One_Way=1, Return=2 };
+    public enum Flight_Type { One_Way=1, Return=2 };
 
-    enum Travel_Class { First=100, Business=50, Economy=0 };
+    public enum Travel_Class { First=100, Business=50, Economy=0 };
 
     [Serializable]
     class Custom_Data

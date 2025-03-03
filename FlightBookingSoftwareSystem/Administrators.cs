@@ -5,6 +5,7 @@ using System.Text;
 
 using Custom;
 using E_Ticket_System;
+using Flight_Booking_Software_System;
 using Flight_System;
 using Passenger_System;
 
@@ -26,9 +27,18 @@ namespace Administrators
         }
 
 
-        public static void Add_Flight(int flightNumber, DateTime departureDate, DateTime returnDate, Cities origin, Cities destination, int numberOfSeats, double baseFare, Flight_Status flightStatus, Flight_Type flightType)
+        public static void Add_Flight(FlightCreationData flightData)
         {
-            Flight f1 = new Flight(flightNumber, departureDate, returnDate, origin, destination, numberOfSeats, baseFare, flightStatus, flightType);
+            Flight f1 = new Flight(
+             flightData.FlightNumber,
+             flightData.DepartureDate,
+             flightData.ReturnDate,
+             flightData.Origin,
+             flightData.Destination,
+             flightData.NumberOfSeats,
+             flightData.BaseFare,
+             flightData.FlightStatus,
+             flightData.FlightType);
             Flight_Processor.Save_Flight(f1);
         }
 
