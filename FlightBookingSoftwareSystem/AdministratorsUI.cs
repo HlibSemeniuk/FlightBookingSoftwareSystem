@@ -24,64 +24,57 @@ namespace Administrators_UI
             };
         }
 
-        public static void Administrators_UI_Operation()
+        static void DisplayMenu() // Виділений метод для виводу меню
         {
             Console.Clear();
 
             Console.WriteLine("********************************");
-            Console.WriteLine("Administrator Login here");
+            Console.WriteLine("Administrator UI here");
 
-            Console.WriteLine("");
-            Console.WriteLine("");
+            Console.WriteLine("1 - Add Ticket");
+            Console.WriteLine("2 - View All Tickets");
             Console.WriteLine("");
 
             Console.WriteLine("********************************");
-            Console.Write("Administrator Name: ");
-            string input_name = Console.ReadLine();
-            Console.Write("Administrator Password: ");
-            string input_password = Console.ReadLine();
+            Console.WriteLine("x - To return");
+            Console.WriteLine("********************************");
+            Console.Write("Choice: ");
+        }
 
-            if (input_name == Administrator.Name && input_password == Administrator.Password)
+        static void WaitForContinueKey() // Виділений метод для очікування натискання клавіші
+        {
+            Console.WriteLine("Press any key to continue . . . ");
+            Console.ReadKey(true);
+        }
+
+        public static void Administrators_UI_Operation()
+        {
+
+            string ui_selector = "0";
+            do
             {
-                string ui_selector = "0";
-                do
+                DisplayMenu();
+                ui_selector = Console.ReadLine();
+
+                // Замінюємо switch на виклик операції зі словника
+                if (_adminOperations.ContainsKey(ui_selector))
                 {
-                    Console.Clear();
-
-                    Console.WriteLine("********************************");
-                    Console.WriteLine("Administrator UI here");
-
-                    Console.WriteLine("1 - Add Ticket");
-                    Console.WriteLine("2 - View All Tickets");
-                    Console.WriteLine("");
-
-                    Console.WriteLine("********************************");
-                    Console.WriteLine("x - To return");
-                    Console.WriteLine("********************************");
-                    Console.Write("Choice: ");
-
-                    ui_selector = Console.ReadLine();
-
-                    // Замінюємо switch на виклик операції зі словника
-                    if (_adminOperations.ContainsKey(ui_selector))
-                    {
-                        _adminOperations[ui_selector].Execute();
-                    }
-                    else
-                    {
-                        _adminOperations["unknown"] = new UnknownOperation(); // Додаємо обробку невідомих операцій
-                        _adminOperations["unknown"].Execute();
-                    }
+                    _adminOperations[ui_selector].Execute();
+                }
+                else
+                {
+                    _adminOperations["unknown"] = new UnknownOperation(); // Додаємо обробку невідомих операцій
+                    _adminOperations["unknown"].Execute();
+                }
 
 
-                    if (ui_selector != "x" && ui_selector != "X")
-                    {
-                        Console.WriteLine("Press any key to continue . . . ");
-                        Console.ReadKey(true);
-                    }
+                if (ui_selector != "x" && ui_selector != "X")
+                {
+                    WaitForContinueKey();
+                }
 
-                } while (ui_selector != "x" && ui_selector != "X");
-            }
+            } while (ui_selector != "x" && ui_selector != "X");
         }
     }
 }
+
