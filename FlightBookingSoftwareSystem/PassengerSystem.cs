@@ -10,6 +10,8 @@ using Credit_Card_System;
 using Custom;
 using E_Ticket_System;
 using Flight_System;
+using System.Net;
+using System.Xml.Linq;
 
 namespace Passenger_System
 {
@@ -137,17 +139,17 @@ namespace Passenger_System
             }
         }
 
-        public static void Add_Passenger(string arg1, string arg2, string arg3)//this is Register_Passenger
+        public static void Add_Passenger(string name, string address, string passportNumber)//this is Register_Passenger // Змінюємо імена параметрів для кращої читабельності
         {
             try
             {
-                Passenger p1 = new Passenger(arg1, arg2, arg3);
+                Passenger p1 = new Passenger(name, address, passportNumber);
                 Passenger_Processor.Save_Passenger(p1);
             }
-
-            finally
+            catch (ArgumentException ex) // Додаємо catch для ArgumentException, який може бути викинутий з конструктора Passenger або Save_Passenger
             {
-                //return " Passenger Added (success indication)"
+                Console.WriteLine($"Error adding passenger: {ex.Message}"); // Обробка винятку
+                                                                            // Можна розглянути повернення false або викидання власного виключення для індикації помилки.
             }
         }
 
